@@ -1,0 +1,24 @@
+{% load django_bootstrap5 %}
+
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/blocks.css/dist/blocks.min.css" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<h1>Testing Django with Bootstrap</h1>
+<h3>Create and delete items.</h3>
+
+<ul class="list-group">
+	{% for todo_item in all_items %}
+	<li  class="list-group-item" style="display: flex!important; justify-content: space-between;"><span>{{ todo_item.content }}</span>
+		<form action="/deleteTodo/{{todo_item.id}}/" class="row g-3 needs-validation" style="margin-right: 1rem;" method="post">{% csrf_token %}
+			<input type="submit" value="Delete" class="btn-primary form-control"/>
+    </form>
+    </li>
+  {% endfor %}
+</ul>
+
+<form action="/addTodo/" method="post" class="row g-3 needs-validation" style="display: flex; flex: 1 1 30px;">{% csrf_token %}
+  <input type="text" name="content" class="form-control"/>
+	{% bootstrap_button "Add" button_type="submit" button_class="btn-primary form-control" %}
+</form>
